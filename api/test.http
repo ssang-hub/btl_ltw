@@ -1,0 +1,16 @@
+GET http://localhost:3001/
+
+###
+POST  http://localhost:3001/login
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDIwMzU0MGQ5ZjZhNGNmNDJiMTUwZCIsImlzQWRtaW4iOnRydWUsInVzZXJuYW1lIjoiU2FuZzEyIiwiYXZhdGFyIjpudWxsLCJpYXQiOjE2NjY5NTUxNzksImV4cCI6MTY2Njk1ODc3OX0.J1Ud7a4FATd5ST0xOTWFv54YKLqchdLbJrmaMfx3oqA
+content-type: application/json
+
+{
+    "uname": "Sang",
+    "passwd": "123"
+    
+}
+
+###
+GET  http://localhost:3001/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmFtZSI6IlNhbmciLCJpYXQiOjE2Njc2MzA0ODcsImV4cCI6MTY2NzYzMDU0N30.3be3VSObLEW1NsCiBnL_MH7rgV6zY5ffNyip2wAknqw
