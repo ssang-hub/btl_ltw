@@ -40,6 +40,11 @@ function Register() {
               position: toast.POSITION.BOTTOM_RIGHT,
               theme: "dark",
             });
+          } else {
+            toast.error("Người dùng đã tồn tại", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              theme: "dark",
+            });
           }
         } catch (error) {
           console.log(error);

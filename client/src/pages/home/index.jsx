@@ -13,6 +13,7 @@ function Home() {
     const getAllBooks = async () => {
       try {
         const data = await axios.get("/getAllBooks");
+        // [{image: "http://localhost:3001/images/c4f7b2c203421593d2ce2fa88bbc153a"},{},{},{},{},{},{},{},{}]
         setBooks(data.data);
       } catch (error) {
         console.log(error);

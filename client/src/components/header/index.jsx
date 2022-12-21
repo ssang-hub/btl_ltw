@@ -1,30 +1,22 @@
 import React from "react";
+import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import User from "../../components/user";
-function index() {
+import { AppName } from "../../config/variable";
+function Header() {
   return (
     <div>
       <nav id="main-navbar" className="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div className="container-fluid">
           <div className="d-flex">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#sidebarMenu"
-              aria-controls="sidebarMenu"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
+            <button className="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
               <i className="fas fa-bars"></i>
             </button>
 
             <a className="navbar-brand" href="/">
               Trang chủ
             </a>
-            <a className="navbar-brand" href="bookmanager">
-              Quản lý sách
-            </a>
+
             <a className="navbar-brand" href="#">
               Thể loại sách
             </a>
@@ -47,4 +39,4 @@ function index() {
   );
 }
 
-export default index;
+export default Header;

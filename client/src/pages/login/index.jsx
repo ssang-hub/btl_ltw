@@ -14,12 +14,13 @@ function Login() {
   const navigate = useNavigate();
   useEffect(() => {
     if (logged) {
-      navigate("/bookmanager");
+      navigate("/");
     }
   });
 
   // gửi yêu cầu login
   const loginAction = async (e) => {
+    e.preventDefault();
     try {
       const result = await axios.post("/login", {
         uname,
@@ -28,7 +29,7 @@ function Login() {
       if (result.data) {
         localStorage.setItem(AppName, JSON.stringify(result.data));
         setLogged(true);
-        navigate("/bookmanager");
+        navigate("/");
       } else {
         toast.error("Thông tin tài khoản, mật khẩu không chính xác", {
           position: "bottom-right",
@@ -39,7 +40,7 @@ function Login() {
       console.log(error);
     }
   };
-
+  //
   //  Giao diện login
   return (
     <section className="vh-100 d-flex">
@@ -49,30 +50,18 @@ function Login() {
             <img src="http://localhost:3001/images/draw2.webp" className="img-fluid" alt="Sample image" />
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-            <form>
+            <form onSubmit={loginAction}>
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                 <p className="lead fw-normal mb-0 me-3">Đăng nhập với</p>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary btn-floating mx-1"
-                  style={{ borderRadius: "50%", width: "40px", height: "40px" }}
-                >
+                <button type="button" className="btn btn-outline-primary btn-floating mx-1" style={{ borderRadius: "50%", width: "40px", height: "40px" }}>
                   <FiFacebook style={{ fontSize: "20px", paddingRight: "4px" }} />
                 </button>
 
-                <button
-                  type="button"
-                  className="btn btn-outline-danger btn-floating mx-1   "
-                  style={{ borderRadius: "50%", width: "40px", height: "40px" }}
-                >
+                <button type="button" className="btn btn-outline-danger btn-floating mx-1   " style={{ borderRadius: "50%", width: "40px", height: "40px" }}>
                   <AiOutlineGoogle style={{ fontSize: "20px", paddingRight: "4px" }} />
                 </button>
 
-                <button
-                  type="button"
-                  className="btn btn-outline-primary btn-floating mx-1"
-                  style={{ borderRadius: "50%", width: "40px", height: "40px" }}
-                >
+                <button type="button" className="btn btn-outline-primary btn-floating mx-1" style={{ borderRadius: "50%", width: "40px", height: "40px" }}>
                   <AiOutlineTwitter style={{ fontSize: "20px", paddingRight: "4px" }} />
                 </button>
               </div>
@@ -83,13 +72,15 @@ function Login() {
 
               <div className="form-outline mb-4">
                 <input
-                  type="email"
+                  type="text"
                   id="form3Example3"
                   className="form-control form-control-lg"
                   placeholder="Tên tài khoản"
+                  name="uname"
                   onChange={(e) => {
                     setUname(e.target.value);
                   }}
+                  required
                 />
                 <label className="form-label" htmlFor="form3Example3">
                   Tên tài khoản
@@ -105,11 +96,8 @@ function Login() {
                   onChange={(e) => {
                     setPasswd(e.target.value);
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      loginAction(e);
-                    }
-                  }}
+                  required
+                  name="passwd"
                 />
                 <label className="form-label" htmlFor="form3Example4">
                   Mật khẩu
@@ -129,7 +117,7 @@ function Login() {
               </div>
 
               <div className="text-center text-lg-start mt-4 pt-2">
-                <button type="button" className="btn btn-primary btn-lg" onClick={(e) => loginAction(e)}>
+                <button type="submit" className="btn btn-primary btn-lg">
                   Đăng Nhập
                 </button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">

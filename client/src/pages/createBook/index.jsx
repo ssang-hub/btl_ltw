@@ -6,11 +6,13 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Sidebar from "../../components/sidebar";
 import { AppName } from "../../config/variable";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CreateBook({ option }) {
   const [logged, setLogged] = useContext(Context);
   const [file, setFile] = useState(undefined);
   const [image, setImage] = useState("http://localhost:3001/images/default-book.png");
-  const [book, setBook] = useState({ id: 0, title: "", author: "", numberPage: 0, description: "", date: "", category: "", image: "" });
+  const [book, setBook] = useState({ id: 0, title: "", author: "", numberPage: 0, description: "", date: "", category: "", image: "", price: 0 });
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ function CreateBook({ option }) {
             date: data.date,
             category: data.category,
             image: data.image,
+            price: data.price,
           }));
           setImage(data.image);
         } catch (error) {
@@ -93,6 +96,13 @@ function CreateBook({ option }) {
         });
         if (result.data) {
           navigate("/");
+        } else {
+          if (!option) {
+            toast.error("Sách đã tồn tại", {
+              position: "bottom-right",
+              theme: "dark",
+            });
+          }
         }
       } catch (error) {
         console.log(error);
@@ -108,66 +118,54 @@ function CreateBook({ option }) {
         <form onSubmit={handleSubmit}>
           <div className="d-flex">
             <div>
-              <div className="form-outline mb-4">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="title"
-                  placeholder="Tiêu đề"
-                  required
-                  defaultValue={book.title}
-                  onChange={(e) => handleChange(e)}
-                />
+              <div className="d-flex">
+                <div className="form-outline mb-4 mr-3">
+                  <div className="float-left">Tiêu đề</div>
+                  <input type="text" className="form-control form-control-lg" name="title" placeholder="Tiêu đề" required defaultValue={book.title} onChange={(e) => handleChange(e)} />
+                </div>
+                <div className="form-outline mb-4 ml-3">
+                  <div className="float-left">Tác giả </div>
+                  <input type="text" className="form-control form-control-lg" name="author" onChange={(e) => handleChange(e)} defaultValue={book.author} placeholder="Tác giả" required />
+                </div>{" "}
               </div>
               <div className="form-outline mb-4">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="author"
-                  onChange={(e) => handleChange(e)}
-                  defaultValue={book.author}
-                  placeholder="Tác giả"
-                  required
-                />
-              </div>{" "}
+                <div className="float-left"> Mô tả sách </div>
+                <textarea type="date" className="form-control form-control-lg" name="description" onChange={(e) => handleChange(e)} placeholder="Mô tả sách" rows="4" defaultValue={book.description} cols="50" required></textarea>
+              </div>
+              <div>
+                <div className="form-outline mb-4">
+                  <div className="float-left"> Ngày xuất bản </div>
+                  <input type="date" className="form-control form-control-lg mr-3" name="date" onChange={(e) => handleChange(e)} defaultValue={book.date} placeholder="Ngày phát hành" required />
+                </div>
+                <div className="form-outline mb-4">
+                  <div className="float-left"> Số trang </div>
+                  <input
+                    type="number"
+                    className="form-control form-control-lg "
+                    name="numberPage"
+                    onChange={(e) => handleChange(e)}
+                    // defaultValue={book.numberPage}
+                    value={book.numberPage}
+                    placeholder="Số trang"
+                    required
+                  />
+                </div>{" "}
+              </div>
               <div className="form-outline mb-4">
+                <div className="float-left"> Giá </div>
                 <input
                   type="number"
-                  className="form-control form-control-lg"
-                  name="numberPage"
+                  className="form-control form-control-lg "
+                  name="price"
                   onChange={(e) => handleChange(e)}
                   // defaultValue={book.numberPage}
-                  value={book.numberPage}
-                  placeholder="Số trang"
+                  value={book.price}
+                  placeholder="Giá"
                   required
                 />
               </div>{" "}
-              <div className="form-outline mb-4">
-                <textarea
-                  type="date"
-                  className="form-control form-control-lg"
-                  name="description"
-                  onChange={(e) => handleChange(e)}
-                  placeholder="Mô tả sách"
-                  rows="4"
-                  defaultValue={book.description}
-                  cols="50"
-                  required
-                ></textarea>
-              </div>
-              <div className="form-outline mb-4">
-                <input
-                  type="date"
-                  className="form-control form-control-lg"
-                  name="date"
-                  onChange={(e) => handleChange(e)}
-                  defaultValue={book.date}
-                  placeholder="Ngày phát hành"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlSelect1">Thể loại</label>
+              <div className="form-group w-50">
+                <div className="float-left"> Thể loại </div>
                 <select
                   className="form-control form-select"
                   id="exampleFormControlSelect1"
@@ -223,10 +221,19 @@ function CreateBook({ option }) {
               Chọn File
             </label>
           </button>
+          <button
+            className="btn btn-outline-danger mb-4 ml-3"
+            onClick={(e) => {
+              setImage("http://localhost:3001/images/default-book.png");
+            }}
+          >
+            Xóa ảnh
+          </button>
           <div>
-            <img src={image} style={{ width: "400px", height: "400px" }} />
+            <img src={image} style={{ width: "300px", height: "400px" }} />
           </div>
         </div>
+        <ToastContainer />
       </div>
       <Footer />
     </>

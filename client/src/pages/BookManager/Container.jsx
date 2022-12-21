@@ -5,6 +5,7 @@ import { AppName } from "../../config/variable";
 import Context from "../../store/Context";
 
 function Conttainer({ books }) {
+  //
   const [logged, setLogged] = useContext(Context);
   const [deleteBookID, setDeleteBookID] = useState(undefined);
   const navigate = useNavigate();
@@ -62,20 +63,22 @@ function Conttainer({ books }) {
                       <th>{book.numberPage}</th>
                       {logged && (
                         <th>
-                          <a href={`edit/book/${book.id}`} className="btn btn-outline-success mx-2">
-                            Edit
-                          </a>
-                          <button
-                            className="btn btn-outline-danger mx-2"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-delete"
-                            onClick={(e) => {
-                              setDeleteBookID(book.id);
-                            }}
-                          >
-                            Delete
-                          </button>
+                          <div className="d-flex">
+                            <a href={`edit/book/${book.id}`} className="btn btn-outline-success mx-2">
+                              Edit
+                            </a>
+                            <button
+                              className="btn btn-outline-danger mx-2"
+                              type="button"
+                              data-toggle="modal"
+                              data-target="#modal-delete"
+                              onClick={(e) => {
+                                setDeleteBookID(book.id);
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </th>
                       )}
                     </tr>

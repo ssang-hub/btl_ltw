@@ -10,11 +10,13 @@ const login = async (req, res) => {
   const user = { uname: req.body.uname, hash: sha256(req.body.passwd, process.env.KEY_ENCRYPT_PASS).toString() };
   try {
     const data = await connect.promise().execute(`Select * from users where uname = '${user.uname}' and passwd = '${user.hash}'`);
-
+    // console.log(data[0][0]);
     if (data[0].length != 0) {
       const userResult = {
+        id: data[0][0].id,
         uname: user.uname,
-        email: data[0].email,
+        email: data[0][0].email,
+        isAdmin: data[0][0].isAdmin,
       };
       // trả về cho client accessToken và RefreshToken
       // accessToken dùng để duy trì đăng nhập, refreshToken dùng để lấy accessToken mới khi accessToken hết hạn
@@ -45,8 +47,10 @@ const register = async (req, res) => {
   const user = { uname: req.body.uname, hash: sha256(req.body.passwd, process.env.KEY_ENCRYPT_PASS), email: req.body.email };
   const checkUser = await connect.promise().execute(`Select * from users where uname = '${user.uname}'`);
   if (checkUser[0].length == 0) {
-    connect.promise().execute(`insert into users values(0, '${user.uname}', '${user.hash}', '${user.email}')`);
+    connect.promise().execute(`insert into users(uname, passwd, email) values('${user.uname}', '${user.hash}', '${user.email}')`);
     res.json(true);
+  } else {
+    res.json(false);
   }
 };
 export { login, logout, register };
