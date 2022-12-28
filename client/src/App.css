@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.burlywood-color {
+  color: burlywood;
+}
+.image-size-mini {
+  width: 100px;
+  height: 150px;
+}

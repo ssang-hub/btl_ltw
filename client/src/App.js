@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import BookManager from "./pages/BookManager";
 import CreateBook from "./pages/createBook";
 import Cart from "./pages/cart";
+import Order from "./pages/order";
 import BookDetail from "./pages/bookDetail";
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/bookmanager" element={<BookManager />} />
         <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Order" element={<Order />} />
       </Routes>
     </div>
   );

@@ -31,7 +31,14 @@ function User() {
               <BsCart style={{ color: "blue", fontSize: "20px" }} />
             </Link>
             <div className="dropdown" style={{ marginRight: "50px" }}>
-              <button className="btn btn-outline-info dropdown-toggle" id="userDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ marginRight: "80px" }}>
+              <button
+                className="btn btn-outline-info dropdown-toggle"
+                id="userDropDown"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style={{ marginRight: "80px" }}
+              >
                 <AiOutlineUser />
               </button>
               <div className="dropdown-menu" aria-labelledby="userDropDown">
@@ -42,7 +49,9 @@ function User() {
                     </a>
                   </div>
                 )}
-
+                <Link className="dropdown-item" to="/Order">
+                  Đơn hàng của tôi
+                </Link>
                 <div className="dropdown-item" onClick={lougOutAction}>
                   Đăng xuất
                 </div>

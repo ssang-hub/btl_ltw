@@ -15,7 +15,11 @@ router.get("/getAllBooks", async (req, res) => {
     const data = await connect.promise().query(`SELECT * FROM books`);
     const results = data[0].map((result) => {
       const datetext = new Date(result.date);
-      const [day, month, year] = [datetext.getDate() > 9 ? datetext.getDate() : `0${datetext.getDate()}`, datetext.getMonth() + 1 > 9 ? datetext.getMonth() + 1 : `0${datetext.getMonth()}`, datetext.getFullYear()];
+      const [day, month, year] = [
+        datetext.getDate() > 9 ? datetext.getDate() : `0${datetext.getDate()}`,
+        datetext.getMonth() + 1 > 9 ? datetext.getMonth() + 1 : `0${datetext.getMonth()}`,
+        datetext.getFullYear(),
+      ];
       result.date = `${year}-${month}-${day}`;
       return result;
     });
@@ -47,10 +51,11 @@ router.post("/getBook", async (req, res) => {
     console.log(error);
   }
 });
-router.post("/getAllComment", async (req, res) => {
-  // console.log(req.body.id);
+router.get("/getAllComment", async (req, res) => {
   try {
-    const data = await connect.promise().execute(`Select * from bookReview where bookID = ${req.body.id}`);
+    const data = await connect
+      .promise()
+      .execute(`Select bookReview.*, users.uname from bookReview inner join users on bookReview.userID = users.id where bookReview.bookID = ${req.query.id}`);
     res.json(data[0]);
   } catch (error) {
     console.log(error);

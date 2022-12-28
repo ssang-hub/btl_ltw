@@ -55,6 +55,7 @@ create table Orders(
 	id int not null auto_increment,
     UserID int not null,
     createAt date not null,
+    totalPrice int not null,
 	primary key(id),
     foreign key(UserID) references users(id) 
 );
